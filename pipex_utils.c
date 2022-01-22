@@ -6,7 +6,7 @@
 /*   By: cvixen <cvixen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 16:43:04 by cvixen            #+#    #+#             */
-/*   Updated: 2022/01/17 22:15:16 by cvixen           ###   ########.fr       */
+/*   Updated: 2022/01/22 14:09:44 by cvixen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*parsing(char **envp, char *line)
 	while (envp[i] != NULL && !ft_strnstr(envp[i], "PATH=", 5))
 		i++;
 	if (envp[i] == NULL)
-		return (NULL);
+		ft_error();
 	paths = envp[i];
 	mypaths = ft_split(paths + 5, ':');
 	i = 0;

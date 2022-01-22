@@ -6,11 +6,17 @@
 /*   By: cvixen <cvixen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 16:42:59 by cvixen            #+#    #+#             */
-/*   Updated: 2022/01/18 14:35:45 by cvixen           ###   ########.fr       */
+/*   Updated: 2022/01/22 13:17:37 by cvixen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
+
+void	ft_exit(void)
+{
+	write(1, "Wrong number of arguments!\n", 28);
+	exit(0);
+}
 
 void	ft_error(void)
 {
@@ -42,7 +48,7 @@ char	*parsing(char **envp, char *line)
 	while (envp[i] != NULL && !ft_strnstr(envp[i], "PATH=", 5))
 		i++;
 	if (envp[i] == NULL)
-		return (NULL);
+		ft_error();
 	paths = envp[i];
 	mypaths = ft_split(paths + 5, ':');
 	i = 0;
