@@ -6,7 +6,7 @@
 /*   By: cvixen <cvixen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 16:43:04 by cvixen            #+#    #+#             */
-/*   Updated: 2022/01/22 14:09:44 by cvixen           ###   ########.fr       */
+/*   Updated: 2022/01/23 14:45:43 by cvixen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_error(void)
 	exit(1);
 }
 
-static void	ft_free(char **dst)
+void	ft_free(char **dst)
 {
 	size_t	i;
 

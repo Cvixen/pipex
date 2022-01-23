@@ -6,74 +6,49 @@
 /*   By: cvixen <cvixen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 16:42:59 by cvixen            #+#    #+#             */
-/*   Updated: 2022/01/22 13:17:37 by cvixen           ###   ########.fr       */
+/*   Updated: 2022/01/23 14:56:19 by cvixen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-void	ft_exit(void)
+void	do_many_command(int f2, char **argv, char **envp, int i)
 {
-	write(1, "Wrong number of arguments!\n", 28);
-	exit(0);
-}
+	pid_t	pid;
 
-void	ft_error(void)
-{
-	perror("Error");
-	exit(1);
-}
-
-static void	ft_free(char **dst)
-{
-	size_t	i;
-
-	i = 0;
-	while (dst[i])
-	{
-		free(dst[i]);
-		i++;
-	}
-	free(dst);
-}
-
-char	*parsing(char **envp, char *line)
-{
-	char	*paths;
-	char	*pathscmd;
-	char	**mypaths;
-	int		i;
-
-	i = 0;
-	while (envp[i] != NULL && !ft_strnstr(envp[i], "PATH=", 5))
-		i++;
-	if (envp[i] == NULL)
+	pid = fork();
+	if (pid < 0)
 		ft_error();
-	paths = envp[i];
-	mypaths = ft_split(paths + 5, ':');
-	i = 0;
-	while (mypaths && mypaths[i++])
+	if (!pid)
 	{
-		pathscmd = ft_strjoin(mypaths[i], line);
-		if (access(pathscmd, 0) == 0)
-		{
-			ft_free(mypaths);
-			return (pathscmd);
-		}
+		if (dup2(f2, STDOUT_FILENO) == -1)
+			ft_error();
+		close(f2);
+		execute(argv[i], envp);
 	}
-	ft_free(mypaths);
-	return (NULL);
+	waitpid(pid, NULL, 0);
 }
 
-void	execute(char *str, char **envp)
+void	ft_pipex(char *cmd, char **envp)
 {
-	char	**cmd;
-	char	*line;
+	int		fd[2];
+	pid_t	pid1;
 
-	cmd = ft_split(str, ' ');
-	line = ft_strjoin ("/", cmd[0]);
-	if (execve(parsing(envp, line), cmd, envp) == -1)
+	if (pipe(fd) == -1)
 		ft_error();
-	free(line);
-	exit(0);
+	pid1 = fork();
+	if (pid1 < 0)
+		ft_error();
+	if (!pid1)
+	{
+		close(fd[0]);
+		if (dup2(fd[1], STDOUT_FILENO) == -1)
+			ft_error();
+		close(fd[1]);
+		execute(cmd, envp);
+	}
+	if (dup2(fd[0], STDIN_FILENO) == -1)
+		ft_error();
+	close(fd[0]);
+	close(fd[1]);
 }

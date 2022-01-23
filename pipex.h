@@ -6,7 +6,7 @@
 /*   By: cvixen <cvixen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 16:43:15 by cvixen            #+#    #+#             */
-/*   Updated: 2022/01/17 16:58:41 by cvixen           ###   ########.fr       */
+/*   Updated: 2022/01/23 14:45:53 by cvixen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@
 void	execute(char *str, char **envp);
 char	*parsing(char **envp, char *line);
 void	ft_error(void);
+void	ft_free(char **dst);
 
 #endif

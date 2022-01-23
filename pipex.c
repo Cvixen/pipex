@@ -6,7 +6,7 @@
 /*   By: cvixen <cvixen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 16:43:10 by cvixen            #+#    #+#             */
-/*   Updated: 2022/01/22 16:03:11 by cvixen           ###   ########.fr       */
+/*   Updated: 2022/01/23 14:26:15 by cvixen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,6 @@ int	main(int argc, char **argv, char **envp)
 	if (argc == 5)
 		ft_pipex(argv, envp);
 	else
-		write(1, "Wrong number of arguments!\n", 28);
+		ft_putstr_fd("Wrong number of arguments!\n", 1);
 	return (0);
 }

@@ -12,7 +12,8 @@ FUNC = pipex.c pipex_utils.c
 
 BONUS_FUNC = pipex_bonus.c \
 			 pipex_utils_bonus.c \
-			 get_next_line.c
+			 get_next_line.c \
+			 pipex_utils.c
 
 
 BONUS_OBJS = ${BONUS_FUNC:.c=.o}
